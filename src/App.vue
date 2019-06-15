@@ -11,11 +11,6 @@ export default {
   name: 'App',
   components: {
     Todo
-  },
-  data () {
-    return {
-      //
-    }
   }
 }
 </script>
