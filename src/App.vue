@@ -6,7 +6,15 @@
       </header>
     </section>
     <div>
-      <todo></todo>
+      <label>
+        Other list :
+        <button class="addlist" type="checkbox" @click.prevent="AddList">+</button>
+        |
+        <button class="deletelist" type="checkbox" @click.prevent="DeleteList">-</button>
+      </label>
+      <div v-for="NumberList in NumberLists" :key="NumberList">
+        <todo></todo>
+      </div>
     </div>
   </section>
 </template>
@@ -21,7 +29,16 @@ export default {
   },
   data () {
     return {
-      NumberList: 1
+      NumberLists: 1
+    }
+  },
+  methods: {
+    AddList: function () {
+      this.NumberLists++
+    },
+    DeleteList: function () {
+      if (this.NumberLists > 1)
+        this.NumberLists--
     }
   }
 }
