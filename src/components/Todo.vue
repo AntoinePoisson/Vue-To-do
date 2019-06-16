@@ -1,22 +1,24 @@
 <template>
    <section class="todoapp">
       <header class="header">
-         <h1>Todo</h1>
-         <button type="box" @click="AddTodo">Ajouter</button>
-         <input type="text" class="new-todo" placeholder=" Ajouter une tache" v-model="message">
-         <button type="box" @click="DeleteAllTodo">Tout Supprimer</button>
+         <button class="adding-todo" type="box" @click.prevent="AddTodo">Ajouter</button>
+         <input type="text" class="new-todo" placeholder=" Ajouter un Todo" v-model="message" @keyup.enter="AddTodo">
       </header>
-      <ul class="todolist" id="list">
-         <li class="todo" v-for="(list, index) in lists" v-if="list != ''" :key="list.id">
-            <div>
-               <button type="box" @click="FinishTodo">Fini </button>
-               {{ list }}
-               <button type="box" @click="DeleteTodo(index)">Delete</button>
+      <ul class="todo-list" id="list">
+         <li class="todo" v-for="(list, index) in lists" v-if="list.message" :key="list.id" :class="{completed: list.done}">
+            <div class="view">
+               <input type="checkbox" v-model="list.done" class="toggle">
+            <label><input type="text" v-model="list.message"></label>
+               <button type="checkbox" class="destroy" @click.prevent="DeleteTodo(index)"></button>
             </div>
          </li>
       </ul>
-      <br>
-      <p>{{ count }} : Nombre de Todo</p>
+      <footer class="footer" v-show="count">
+         <div>
+            <span class="todo-count"> <strong>{{ count }}</strong> : Nombre de Todo</span>
+            <button class="clear-completed" type="box" @click.prevent="DeleteAllTodo">Tout Supprimer</button>
+         </div>
+      </footer>
    </section>
 </template>
 
@@ -24,8 +26,11 @@
    export default {
       data () {
          return {
-            lists: [],
-            count : '0',
+            lists: [{
+               message: '',
+               done: false
+            }],
+            count : 0,
             message: ''
          }
       },
@@ -33,30 +38,25 @@
          AddTodo: function() {
             if (this.message == '' | this.message == ' ')
                return {}
-            this.lists.push(this.message)
+            this.lists.push({
+               message: this.message,
+               done: false
+            })
             this.message = ''
             this.count++
          },
-         DeleteTodo: function(number) {
-            console.log(number)
-            this.lists.splice(this.lists, number + 1)
+         DeleteTodo: function(index) {
+            this.lists.splice(index, 1)
             if (this.count > 0)
-            this.count--
+               this.count--
          },
          DeleteAllTodo: function() {
             this.lists.splice(this.lists)
             this.count = 0
          },
-         FinishTodo: function() {
-            this.lists.push(this.message)
-            this.count = 0
-         },
-         EditTodo: function() {
-            this.lists.push(this.message)
-            this.count = 0
+         EditTodo: function(list) {
+            this.lists.message = list
          }
       }
    }
 </script>
-
-<style src="./todo.css"></style>

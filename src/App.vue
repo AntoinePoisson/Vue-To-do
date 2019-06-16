@@ -1,7 +1,14 @@
 <template>
-  <div>
-    <todo></todo>
-  </div>
+  <section>
+    <section class="todoapp">
+      <header>
+        <h1>Todo</h1>
+      </header>
+    </section>
+    <div>
+      <todo></todo>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -11,6 +18,13 @@ export default {
   name: 'App',
   components: {
     Todo
+  },
+  data () {
+    return {
+      NumberList: 1
+    }
   }
 }
 </script>
+
+<style src="./components/todo.css"></style>
