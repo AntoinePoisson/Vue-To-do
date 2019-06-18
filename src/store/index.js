@@ -8,7 +8,7 @@ export default new Vuex.Store({
       done: false
     }],
     count: 0,
-    message: 0,
+    message: '',
   },
   mutations: {
     AddTodo (state) {
@@ -30,9 +30,6 @@ export default new Vuex.Store({
     DeleteAllTodo (state) {
       state.lists.splice(state.lists)
       state.count = 0
-    },
-    EditTodo (state, list) {
-      state.lists.text = list
     }
   }
 })
