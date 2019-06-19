@@ -1,7 +1,6 @@
 import Vuex from 'vuex'
 
-export default new Vuex.Store({
-  state: {
+const state = {
     lists: [{
       id: 0,
       text: '',
@@ -9,9 +8,14 @@ export default new Vuex.Store({
     }],
     count: 0,
     message: '',
-  },
-  mutations: {
-    AddTodo (state) {
+}
+
+const getters = {
+  DoneTodo: (state => state.lists.filter(lists => !(lists.done)).length - 1)
+}
+
+const mutations = {
+    AddTodo: (state) => {
       if (state.message == '' | state.message == ' ')
         return {}
       state.lists.push({
@@ -22,14 +26,33 @@ export default new Vuex.Store({
       state.count++
       state.message = ''
     },
-    DeleteTodo (state, index) {
+    DeleteTodo: (state, index) => {
       state.lists.splice(index, 1)
       if (state.count > 0)
           state.count--
     },
-    DeleteAllTodo (state) {
+    DeleteAllTodo: (state) => {
       state.lists.splice(state.lists)
       state.count = 0
     }
-  }
+}
+
+const actions = {
+  AddTodo: (store) => {
+    store.commit('AddTodo')
+  },
+  DeleteTodo: (store, index) => {
+    store.commit('DeleteTodo', index)
+  },
+  DeleteAllTodo: (store) => {
+    store.commit('DeleteAllTodo')
+  },
+}
+
+export default new Vuex.Store({
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions,
+  //strict: true
 })
