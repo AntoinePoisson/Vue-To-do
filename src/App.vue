@@ -1,22 +1,26 @@
 <template>
-  <section>
-    <section class="todoapp">
-      <header>
-        <h1>Todo</h1>
-      </header>
-    </section>
-    <div>
-      <label>
-        Other list :
-        <button class="addlist" type="checkbox" @click.prevent="AddList">+</button>
-        |
-        <button class="deletelist" type="checkbox" @click.prevent="DeleteList">-</button>
-      </label>
-      <div v-for="NumberList in NumberLists" :key="NumberList">
-        <todo></todo>
+  <v-app style="background: #f5f5f5">
+    <section>
+      <section class="todoapp">
+        <header>
+          <h1>Todo</h1>
+        </header>
+      </section>
+      <div>
+        <label>
+          <v-btn fab small class="mangamenaddlist" type="checkbox" @click.prevent="AddList">
+            +
+          </v-btn>
+          <v-btn fab small class="mangamenaddlist" type="checkbox" @click.prevent="DeleteList">
+            -
+          </v-btn>
+        </label>
+        <div v-for="NumberList in NumberLists" :key="NumberList">
+          <todo></todo>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </v-app>
 </template>
 
 <script>
